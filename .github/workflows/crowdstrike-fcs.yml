@@ -1,0 +1,26 @@
+name: CrowdStrike FCS Scan (IaC)
+
+on:
+  pull_request:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  fcs_iac_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: CrowdStrike FCS IaC scan
+        uses: CrowdStrike/fcs-action@v3
+        with:
+          falcon_client_id: ${{ secrets.FALCON_CLIENT_ID }}
+          falcon_region: us-2
+          scan_type: iac
+          path: .
+          report_formats: sarif
+          output_path: ./scan-results
+        env:
+          FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
