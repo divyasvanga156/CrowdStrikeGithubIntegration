@@ -1,9 +1,10 @@
 name: CrowdStrike FCS Scan (IaC)
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   fcs_iac_scan:
